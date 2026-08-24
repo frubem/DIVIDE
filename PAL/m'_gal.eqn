@@ -1,0 +1,80 @@
+M_GAL (harddrive controller and additional logic)
+loe	- latch output enable
+doe	- driver output enable
+hdwr	- harddrive write
+hdrd	- harddrive read
+lclk	- latch clock
+mgalclk	- clocks for m_gal
+rgalclk	- clocks for r_gal
+romacc	- address is 00xxxxxxxxxxxxxx
+evenodd	- byte order flag
+romwr	- 8k (e)eprom write
+
+CHIP m_gal gal22v10
+
+CLK NC A15 A14 ideio0 ideio1 /WR /RD conmem A13 /eprom GND
+/IORQ /romwr evenodd lclk romacc rgalclk /doe /hdrd /hdwr /loe mgalclk VCC
+
+EQUATIONS
+
+mgalclk	= /IORQ*mgalclk
+	+ /RD*/WR*mgalclk
+	+ /ideio0*/ideio1*mgalclk
+	+ ideio1*evenodd*/RD*/hdwr*mgalclk
+	+ ideio1*/ideio0*/RD*/hdwr*mgalclk
+	+ ideio1*ideio0*/RD*/loe*mgalclk
+	+ ideio1*/WR*/doe*mgalclk
+	+ /IORQ*/RD*/WR*/loe*/doe*/hdrd
+
+rgalclk	= /IORQ*rgalclk
+	+ /WR*rgalclk
+	+ /ideio0*rgalclk
+	+ ideio1*rgalclk
+	+ mgalclk*rgalclk
+	+ /IORQ*/WR
+
+romacc	= /A14*/A15
+
+/romwr	= /WR
+	+ A13
+	+ A14
+	+ A15
+	+ eprom
+	+ /conmem
+
+/loe	= /IORQ*/loe
+	+ /RD*/WR*/loe
+	+ /ideio1*/loe
+	+ /ideio0*/loe
+	+ /WR*/evenodd*/loe
+	+ /IORQ*/RD*/WR*/lclk*/hdwr*/doe
+
+/doe	= /IORQ*/doe
+	+ /RD*/WR*/doe
+	+ /ideio1*/doe
+	+ /RD*ideio0*/doe
+	+ /WR*/loe*/hdrd*/doe
+	+ /IORQ*/RD*/WR*/hdwr
+
+lclk	= IORQ*RD*ideio1*ideio0*/evenodd*/mgalclk
+	+ IORQ*WR*ideio1*ideio0*/evenodd*/mgalclk
+	+ IORQ*lclk
+	+ RD*lclk
+	+ WR*lclk
+
+/hdwr	= /IORQ*/hdwr
+	+ /WR*/hdwr
+	+ /ideio1*/hdwr
+	+ ideio0*/evenodd*/hdwr
+	+ /loe*/doe*/hdwr
+	+ /IORQ*/WR
+
+/hdrd	= /IORQ*/hdrd
+	+ /RD*/hdrd
+	+ /ideio1*/hdrd
+	+ ideio0*evenodd*/hdrd
+	+ /IORQ*/RD*/lclk*/doe
+
+evenodd	:= /evenodd*ideio0*ideio1
+
+evenodd.c	= CLK

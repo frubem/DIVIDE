@@ -1,0 +1,78 @@
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V024)
+Copyright (c) National Semiconductor Corporation 1990,1991
+
+Document file for a_gal.eqn
+Device: G22V10
+
+$LABELS 24 CLK A11 A9 A4 A6 A2 A3 A1 A0 A12 A13 GND romacc ideio0 ideio1 automap
+ /M1 mapterm mapcond A7 A5 A8 A10 VCC
+
+
+Pin   Label               Type
+---   -----               ----
+1     CLK                 clock pin
+2     A11                 pos,com input
+3     A9                  pos,com input
+4     A4                  pos,com input
+5     A6                  pos,com input
+6     A2                  pos,com input
+7     A3                  pos,com input
+8     A1                  pos,com input
+9     A0                  pos,com input
+10    A12                 pos,com input
+11    A13                 pos,com input
+12    GND                 ground pin
+13    romacc              pos,com input
+14    ideio0              pos,trst,com output
+15    ideio1              pos,trst,com output
+16    automap             pos,trst,reg output
+17    /M1                 neg,com input
+18    mapterm             pos,trst,com feedback
+19    mapcond             pos,trst,reg feedback
+20    A7                  pos,com input
+21    A5                  pos,com input
+22    A8                  pos,com input
+23    A10                 pos,com input
+
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V024)
+Copyright (c) National Semiconductor Corporation 1990,1991
+
+Device Utilization:
+
+No of dedicated inputs used               : 12/12 (100.0%)
+No of feedbacks used as dedicated inputs  :  4/10 (40.0%)
+No of feedbacks used as dedicated outputs :  3/10 (30.0%)
+No of feedbacks used                      :  2/10 (20.0%)
+
+		------------------------------------------
+		Pin   Label                 Terms Usage
+		------------------------------------------
+		19    mapcond              14/17  (82.4%)
+		18    mapterm               7/17  (41.2%)
+		16    automap               1/13  (7.7%)
+		15    ideio1                2/11  (18.2%)
+		14    ideio0                2/9   (22.2%)
+		------------------------------------------
+		Total                      30/132 (22.7%)
+		------------------------------------------
+
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V024)
+Copyright (c) National Semiconductor Corporation 1990,1991
+
+                            Chip diagram (DIP)
+
+                             ._____    _____.
+                             |     \__/     |
+                         CLK |  1        24 | VCC
+                         A11 |  2        23 | A10
+                          A9 |  3        22 | A8
+                          A4 |  4        21 | A5
+                          A6 |  5        20 | A7
+                          A2 |  6        19 | mapcond
+                          A3 |  7        18 | mapterm
+                          A1 |  8        17 | /M1
+                          A0 |  9        16 | automap
+                         A12 | 10        15 | ideio1
+                         A13 | 11        14 | ideio0
+                         GND | 12        13 | romacc
+                             |______________|

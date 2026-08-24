@@ -1,0 +1,81 @@
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V024)
+Copyright (c) National Semiconductor Corporation 1990,1991
+
+Document file for m'_gal.eqn
+Device: G22V10
+
+$LABELS 24 CLK NC A15 A14 ideio0 ideio1 /WR /RD conmem A13 /eprom GND /IORQ
+ /romwr evenodd lclk romacc rgalclk /doe /hdrd /hdwr /loe mgalclk VCC
+
+
+Pin   Label               Type
+---   -----               ----
+1     CLK                 clock pin
+2     NC                  unused
+3     A15                 pos,com input
+4     A14                 pos,com input
+5     ideio0              pos,com input
+6     ideio1              pos,com input
+7     /WR                 neg,com input
+8     /RD                 neg,com input
+9     conmem              pos,com input
+10    A13                 pos,com input
+11    /eprom              neg,com input
+12    GND                 ground pin
+13    /IORQ               neg,com input
+14    /romwr              pos,trst,com output
+15    evenodd             pos,trst,reg feedback
+16    lclk                pos,trst,com feedback
+17    romacc              pos,trst,com output
+18    rgalclk             pos,trst,com feedback
+19    /doe                pos,trst,com feedback
+20    /hdrd               pos,trst,com feedback
+21    /hdwr               pos,trst,com feedback
+22    /loe                pos,trst,com feedback
+23    mgalclk             pos,trst,com feedback
+
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V024)
+Copyright (c) National Semiconductor Corporation 1990,1991
+
+Device Utilization:
+
+No of dedicated inputs used               : 10/12 (83.3%)
+No of feedbacks used as dedicated outputs :  2/10 (20.0%)
+No of feedbacks used                      :  8/10 (80.0%)
+
+		------------------------------------------
+		Pin   Label                 Terms Usage
+		------------------------------------------
+		23    mgalclk               9/9   (100.0%)
+		22    loe                   7/11  (63.6%)
+		21    hdwr                  7/13  (53.8%)
+		20    hdrd                  6/15  (40.0%)
+		19    doe                   7/17  (41.2%)
+		18    rgalclk               7/17  (41.2%)
+		17    romacc                2/15  (13.3%)
+		16    lclk                  6/13  (46.2%)
+		14    romwr                 7/9   (77.8%)
+		------------------------------------------
+		Total                      60/132 (45.5%)
+		------------------------------------------
+
+EQN2JED - Boolean Equations to JEDEC file assembler (Version V024)
+Copyright (c) National Semiconductor Corporation 1990,1991
+
+                            Chip diagram (DIP)
+
+                             ._____    _____.
+                             |     \__/     |
+                         CLK |  1        24 | VCC
+                          NC |  2        23 | mgalclk
+                         A15 |  3        22 | /loe
+                         A14 |  4        21 | /hdwr
+                      ideio0 |  5        20 | /hdrd
+                      ideio1 |  6        19 | /doe
+                         /WR |  7        18 | rgalclk
+                         /RD |  8        17 | romacc
+                      conmem |  9        16 | lclk
+                         A13 | 10        15 | evenodd
+                      /eprom | 11        14 | /romwr
+                         GND | 12        13 | /IORQ
+                             |______________|

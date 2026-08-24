@@ -1,0 +1,1 @@
+The R"_GAL chip supports 16kB SRAM paging (needed for BSDOS for example). Any DivIDE interface can be upgraded with this version. Just replace R_GAL with new R"_GAL chip. No other changes are needed.

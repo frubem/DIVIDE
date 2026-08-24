@@ -1,0 +1,97 @@
+R_GAL (register set and memory controller)
+poweron - power-on reset
+eprom	- 8k (e)eprom present and flashing disabled
+bank0	- 32k sram bank for <2000,3fff>, bit 0 
+bank1	- 32k sram bank for <2000,3fff>, bit 1
+mapram	- start 8k (e)eprom emulation and lock sram bank 3
+conmem	- unlock and force 8k (e)eprom and selected 32k sram bank to <0000,3fff>
+addr0	- bit A13 for 32k sram
+addr1	- bit A14 for 32k sram
+romoff	- detach original rom
+romoe	- 8k (e)eprom output enable
+ramoe	- 32k sram output enable
+ramwr	- 32k sram write
+
+CHIP r_gal gal22v10
+
+CLK /WR romacc D0 D1 /RD automap /poweron D7 D6 A13 GND
+/eprom romoff /romoe conmem bank0 bank1 /ramoe addr1 addr0 /ramwr mapram VCC
+
+EQUATIONS
+
+romoff	= automap*eprom
+	+ automap*mapram
+	+ conmem
+	+ mapram*/eprom*bank1
+
+addr0	= bank0*conmem
+	+ bank0*/mapram
+	+ bank0*eprom
+	+ bank0*/bank1
+	+ /A13*/mapram
+	+ /A13*eprom
+	+ /A13*/bank1
+	+ A13*/conmem*mapram*/eprom*bank1
+
+addr1	= bank1*conmem
+	+ bank1*/mapram
+	+ bank1*eprom
+	+ /A13*/mapram
+	+ /A13*eprom
+	+ /A13*/bank1
+	+ D0*/CLK*/conmem*mapram*/eprom*bank1
+	+ D0*addr1*/conmem*mapram*/eprom*bank1
+	+ addr1*CLK*/conmem*mapram*/eprom*bank1
+
+/romoe	= /RD
+	+ /romacc
+	+ A13
+	+ /conmem*mapram
+	+ /conmem*/automap
+	+ /conmem*/eprom
+
+/ramoe	= /RD
+	+ /romacc
+	+ /A13*/mapram
+	+ /A13*conmem
+	+ /conmem*/automap*/mapram
+	+ /conmem*/automap*eprom
+	+ /conmem*/automap*/bank1
+	+ /conmem*/eprom*/mapram
+
+/ramwr	= /WR
+	+ /romacc
+	+ /A13*conmem
+	+ /A13*eprom
+	+ /A13*/bank1
+	+ /conmem*mapram*bank0*bank1
+	+ /conmem*/automap*/mapram
+	+ /conmem*/automap*eprom
+	+ /conmem*/automap*/bank1
+	+ /conmem*/eprom*/mapram
+
+bank0	:= D0*conmem
+	+ D0*/mapram
+	+ D0*eprom
+	+ D0*/bank1
+	+ /D6*/conmem*mapram*/eprom*bank1
+
+bank0.c		= CLK
+bank0.ar	= poweron
+
+bank1	:= D1
+	+ /conmem*mapram*/eprom*bank1
+
+bank1.c		= CLK
+bank1.ar	= poweron
+
+mapram	:= D6
+	+ mapram
+
+mapram.c	= CLK
+mapram.ar	= poweron
+
+conmem	:= D7
+
+conmem.c	= CLK
+conmem.ar	= poweron

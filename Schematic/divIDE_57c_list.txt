@@ -1,0 +1,28 @@
+Partlist exported from /home/zilog/eagle/divIDE/divIDE_57c.sch at 11/24/2004 23:18:29 
+
+Qty Value               Device          Parts                     
+1   1N4148              DIODE-D-5       D1                        
+3   1k5                 R-EU_0207/10    R1, R2, R3                
+5   3k3                 R-EU_0207/10    R4, R5, R7, R9, R10       
+1   3mm/2mA/G (POWER)   LED3MM          LED1                      
+1   3mm/2mA/R (BUSY)    LED3MM          LED3                      
+1   3mm/2mA/Y (MAPRAM)  LED3MM          LED2                      
+1   4k7                 RN08            RN1                       
+1   28C64               2864            IC8                       
+1   33                  C-EU050-024X044 C8                        
+2   74HCT245            74HCT245N       IC5, IC6                  
+1   74HCT573            74HCT573N       IC4                       
+1   100k                R-EU_0207/10    R6                        
+7   100n                C-EU050-024X044 C1, C2, C3, C4, C5, C6, C7
+1   470                 R-EU_0207/10    R8                        
+1   62256LLP07          HM8832          IC7                       
+2   BC337               BC337           T1, T2                    
+1   BF199               BF199           T3                        
+1   GAL22V10D-25LP (A)  22V10           IC1                       
+1   GAL22V10D-25LP (M') 22V10           IC3                       
+1   GAL22V10D-25LP (R)  22V10           IC2                       
+1   MLW40G              PINHD-2X20      CON2                      
+1   P-B1720B            10-XX           S1                        
+1   S1G2 (+2A)          PINHD-1X2       JP1                       
+1   S1G2 (EPROM)        PINHD-1X2       JP2                       
+1   SLOT 62 (56)        IF-PADS         CON1                      

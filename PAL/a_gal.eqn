@@ -1,0 +1,47 @@
+A_GAL (address decoder and memory automapper, remove ;Beta lines for no-Beta)
+mapterm	- detected 0000, 0008, 0038, 0066, 04c6 and 0562
+mapcond - entered 0000, 0008, 0038, 0066, 04c6, 0562, <3d00,3dff> & !<1ff8,1fff>
+automap	- fetched 0000, 0008, 0038, 0066, 04c6, 0562, <3d00,3dff> & !<1ff8,1fff>
+ideio0	- address is xxxxxxxx1x100011
+ideio1	- address is xxxxxxxx101xxx11
+
+CHIP a_gal gal22v10
+
+CLK A11 A9 A4 A6 A2 A3 A1 A0 A12 A13 GND
+romacc ideio0 ideio1 automap /M1 mapterm mapcond A7 A5 A8 A10 VCC
+
+EQUATIONS
+
+ideio0	= A0*A1*/A2*/A3*/A4*A5*A7
+
+ideio1	= A0*A1*A5*/A6*A7
+
+mapterm	= /A0*/A1*/A2*/A3*/A4*/A5*/A6*/A7*/A8*/A9*/A10*/A11*/A12*/A13*romacc*M1
+	+ /A0*/A1*/A2*A3*/A4*/A5*/A6*/A7*/A8*/A9*/A10*/A11*/A12*/A13*romacc*M1
+	+ /A0*/A1*/A2*A3*A4*A5*/A6*/A7*/A8*/A9*/A10*/A11*/A12*/A13*romacc*M1
+	+ /A0*A1*A2*/A3*/A4*A5*A6*/A7*/A8*/A9*/A10*/A11*/A12*/A13*romacc*M1
+	+ /A0*A1*A2*/A3*/A4*/A5*A6*A7*/A8*/A9*A10*/A11*/A12*/A13*romacc*M1
+	+ /A0*A1*/A2*/A3*/A4*A5*A6*/A7*A8*/A9*A10*/A11*/A12*/A13*romacc*M1
+
+mapcond := mapterm
+	+ A8*/A9*A10*A11*A12*A13*romacc*M1	;Beta
+	+ mapcond*/M1
+	+ mapcond*/romacc
+	+ mapcond*A13
+	+ mapcond*/A12
+	+ mapcond*/A11
+	+ mapcond*/A10
+	+ mapcond*/A9
+	+ mapcond*/A8
+	+ mapcond*/A7
+	+ mapcond*/A6
+	+ mapcond*/A5
+	+ mapcond*/A4
+	+ mapcond*/A3
+
+mapcond.c	= CLK
+
+automap	:= mapcond
+	+ A8*/A9*A10*A11*A12*A13*romacc*M1	;Beta
+
+automap.c	= CLK
